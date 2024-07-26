@@ -111,7 +111,7 @@ def centerImage(screen, im):
 # ---------- main -------------
 
 pygame.init()
-screen = pygame.display.set_mode([640,480])
+screen = pygame.display.set_mode([960,720])
 screen.fill(WHITE)
 pygame.display.set_caption("Pong")
 
