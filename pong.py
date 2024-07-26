@@ -18,7 +18,7 @@ PADDLE_STEP = 10
 LEFT  = 0
 RIGHT = 1
 
-WINNING_SCORE = 5
+WINNING_SCORE = 15
 
 
 class BlockSprite(pygame.sprite.Sprite):
