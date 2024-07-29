@@ -60,7 +60,7 @@ class BallSprite(pygame.sprite.Sprite):
                        # step size and direction along each axis
 
 
-    def update(self):
+    def update(self,type):
         global scoreLeft, scoreRight
         if pygame.sprite.collide_rect(self, leftPaddle) and (self.xStep < 0):  
             # hit left paddle and going left
@@ -75,11 +75,15 @@ class BallSprite(pygame.sprite.Sprite):
             self.yStep = -self.yStep
 
         if pygame.sprite.spritecollideany(self, vertWalls):
+            if (type == "ball"):
+                x = 1
+            else:
+                x = 2
             # ball has reached left or right sides
             if pygame.sprite.collide_rect(self, right):
-                scoreLeft += 1
+                scoreLeft += x
             else:   # left side
-                scoreRight += 1
+                scoreRight += x
 
             # reset the ball
             self.rect.center = (scrWidth/2, scrHeight/2)
@@ -180,8 +184,8 @@ while running:
     if not gameOver:
         leftPaddle.move(leftStep)
         rightPaddle.move(rightStep)
-        ball.update()
-        red_ball.update()
+        ball.update("ball")
+        red_ball.update("red")
 
         if scoreLeft >= WINNING_SCORE:
             winMsg = "Left Wins!"
