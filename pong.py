@@ -60,7 +60,7 @@ class BallSprite(pygame.sprite.Sprite):
                        # step size and direction along each axis
 
 
-    def update(self,type):
+    def update(self, type, time):
         global scoreLeft, scoreRight
         if pygame.sprite.collide_rect(self, leftPaddle) and (self.xStep < 0):  
             # hit left paddle and going left
@@ -89,9 +89,16 @@ class BallSprite(pygame.sprite.Sprite):
             self.rect.center = (scrWidth/2, scrHeight/2)
             self.xStep, self.yStep = self.randomSteps()
 
-        self.rect.x += self.xStep   # move the ball horizontally
-        self.rect.y += self.yStep   # and vertically
-
+        if time < 3 :
+            self.rect.x += (self.xStep)   # move the ball horizontally
+            self.rect.y += (self.yStep) 
+             
+        elif(time < 10):
+            self.rect.x += (self.xStep*(1+(time*0.1)))   # move the ball horizontally
+            self.rect.y += (self.yStep*(1+(time*0.1))) # and vertically
+        else:
+            self.rect.x += (self.xStep*(2+(time*0.01)))   # move the ball horizontally
+            self.rect.y += (self.yStep*(2+(time*0.01)))
 
     def randomSteps(self):
         # create a random +/- STEP pair
@@ -179,13 +186,15 @@ while running:
                 leftStep = 0
             if event.key == K_p or event.key == K_l:   # right paddle
                 rightStep = 0
+    
+    time = int((pygame.time.get_ticks() - tick_started)/1000)
 
     # update game
     if not gameOver:
         leftPaddle.move(leftStep)
         rightPaddle.move(rightStep)
-        ball.update("ball")
-        red_ball.update("red")
+        ball.update("ball", time)
+        red_ball.update("red", time)
 
         if scoreLeft >= WINNING_SCORE:
             winMsg = "Left Wins!"
@@ -194,7 +203,7 @@ while running:
             winMsg = "Right Wins!"
             gameOver = True
 
-    time = int((pygame.time.get_ticks() - tick_started)/1000)
+    
     # redraw
     screen.fill(WHITE)                       
     sprites.draw(screen);
