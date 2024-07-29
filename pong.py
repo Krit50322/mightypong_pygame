@@ -131,9 +131,10 @@ leftPaddle = Paddle(50, scrHeight/2)
 rightPaddle = Paddle(scrWidth-50, scrHeight/2)
 
 ball = BallSprite('smallBall.png')
+red_ball = BallSprite("super_dangerous_ball.png")
 
 sprites = pygame.sprite.OrderedUpdates(top, bottom, left, right, 
-                               leftPaddle, rightPaddle, ball)
+                               leftPaddle, rightPaddle, ball, red_ball)
 
 # game vars
 leftStep = 0; rightStep = 0
@@ -180,6 +181,7 @@ while running:
         leftPaddle.move(leftStep)
         rightPaddle.move(rightStep)
         ball.update()
+        red_ball.update()
 
         if scoreLeft >= WINNING_SCORE:
             winMsg = "Left Wins!"
