@@ -145,12 +145,13 @@ gameOver = False
 # font = pygame.font.Font(None, 30)
 font = pygame.font.Font(None, 72)
 
-
+tick_started = pygame.time.get_ticks()
 clock = pygame.time.Clock()
 
 running = True    
 while running:
     clock.tick(30)
+    time = pygame.time.get_ticks
 
     # handle events
     for event in pygame.event.get():
@@ -187,12 +188,14 @@ while running:
             winMsg = "Right Wins!"
             gameOver = True
 
+    time = int((pygame.time.get_ticks() - tick_started)/1000)
     # redraw
     screen.fill(WHITE)                       
     sprites.draw(screen);
 
     screen.blit( font.render(str(scoreLeft) + ":" + 
                              str(scoreRight), True, RED), [20, 20])
+    screen.blit(font.render(str(time), True, RED), [ 820,20])
 
     if gameOver:
         centerImage(screen, font.render(winMsg, True, RED))
